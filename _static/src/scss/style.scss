@@ -1,3 +1,27 @@
 @charset "UTF-8";
 
 @use './modules/index';
+
+.hoge01 {
+  @media only screen and (max-width: 1216px) {
+    font-size: 35px;
+  }
+  @media only screen and (max-width: 980px) {
+    font-size: 28px;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 26px;
+  }
+}
+
+.hoge02 {
+  @media only screen and (max-width: 1216px) {
+    font-size: 35px;
+  }
+  @media only screen and (max-width: 980px) {
+    font-size: 28px;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 26px;
+  }
+}
