@@ -1,0 +1,33 @@
+@use '../setting/setting' as s;
+
+
+// メディアクエリ
+@mixin pc {
+  @media only screen and (min-width: #{s.$bp-pc}) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media only screen and (max-width: #{s.$bp-sp}) {
+    @content;
+  }
+}
+
+@mixin background(
+  $color: transparent,
+  $image,
+  // 呼び出し側：ulr(../img/)など
+  $repeat: no-repeat,
+  $position-x: center,
+  $position-y: center,
+  $size: cover
+) {
+  background: {
+    color: $color;
+    image: $image;
+    repeat: $repeat;
+    position: $position-x $position-y;
+    size: $size;
+  }
+}

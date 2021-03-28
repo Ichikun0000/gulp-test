@@ -26,13 +26,19 @@ const distBase = './_static/dist';
 const srcPath = {
   'scss': srcBase + '/scss/**/*.scss',
   'html': srcBase + '/**/*.html',
-  'img': srcBase + '/img/**/*'
+  'img': srcBase + '/img/**/*',
+  'js': srcBase + '/js/**/*.js',
+  'php': srcBase + '/**/*.php',
+  'font': srcBase + '/font/**/*',
 };
 
 const distPath = {
   'css': distBase + '/css/',
   'html': distBase + '/',
-  'img': distBase + '/img/'
+  'img': distBase + '/img/',
+  'js': distBase + '/js/',
+  'php': distBase + '/',
+  'font': distBase + '/font/',
 };
 
 
@@ -113,6 +119,31 @@ const html = () => {
 }
 
 /**
+ * js
+ */
+const js = () => {
+  return gulp.src(srcPath.js)
+    .pipe(gulp.dest(distPath.js))
+}
+
+
+/**
+ * php
+ */
+const php = () => {
+  return gulp.src(srcPath.php)
+    .pipe(gulp.dest(distPath.php))
+}
+
+/**
+ * 独自fontをsrc配下に読み込む際の対応
+ */
+const font = () => {
+  return gulp.src(srcPath.font)
+    .pipe(gulp.dest(distPath.font))
+}
+
+/**
  * ローカルサーバー立ち上げ
  */
 const browserSyncFunc = () => {
@@ -140,7 +171,10 @@ const browserSyncReload = (done) => {
 const watchFiles = () => {
   gulp.watch(srcPath.scss, gulp.series(cssSass))
   gulp.watch(srcPath.html, gulp.series(html, browserSyncReload))
+  gulp.watch(srcPath.js, gulp.series(js, browserSyncReload))
   gulp.watch(srcPath.img, gulp.series(imgImagemin, browserSyncReload))
+  gulp.watch(srcPath.php, gulp.series(php, browserSyncReload))
+  gulp.watch(srcPath.font, gulp.series(font, browserSyncReload))
 }
 
 /**
@@ -151,6 +185,6 @@ const watchFiles = () => {
  */
 exports.default = gulp.series(
   clean,
-  gulp.parallel(html, cssSass, imgImagemin),
+  gulp.parallel(html, cssSass, js, imgImagemin, php, font),
   gulp.parallel(watchFiles, browserSyncFunc)
 );

@@ -1,0 +1,8 @@
+@use '../../mixin/mixin' as *;
+@use '../../setting/setting' as *;
+
+.news {
+  h1 {
+    color: $color_accent;
+  }
+}
