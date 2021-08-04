@@ -19,47 +19,52 @@ const imageminSvgo = require("imagemin-svgo");
 
 
 // 入出力するフォルダを指定
-const srcBase = './_static/src';
-const distBase = './_static/dist';
+const srcBase = '../_static/src';
+const assetsBase = '../_assets';
+const distBase = '../_static/dist';
 
 
 const srcPath = {
-  'scss': srcBase + '/scss/**/*.scss',
+  'scss': assetsBase + '/scss/**/*.scss',
+  'js': assetsBase + '/js/**/*.js',
+  'img': [assetsBase + '/img/**/*', '!' + assetsBase + '/img/svg/*.svg'],
+  'font': assetsBase + '/font/**/*',
   'html': srcBase + '/**/*.html',
-  'img': srcBase + '/img/**/*',
-  'js': srcBase + '/js/**/*.js',
   'php': srcBase + '/**/*.php',
-  'font': srcBase + '/font/**/*',
 };
+
 
 const distPath = {
   'css': distBase + '/css/',
-  'html': distBase + '/',
-  'img': distBase + '/img/',
   'js': distBase + '/js/',
-  'php': distBase + '/',
+  'img': distBase + '/img/',
   'font': distBase + '/font/',
+  'html': distBase + '/',
+  'php': distBase + '/',
 };
 
 
 /**
  * clean
  */
-const clean = () => {
-  return del(distBase + '/**');
+ const clean = () => {
+  return del([distBase + '/**'], {
+    force: true
+  });
 }
 
 //ベンダープレフィックスを付与する条件
 const TARGET_BROWSERS = [
-  'last 2 versions', //各ブラウザの2世代前までのバージョンを担保
-  'ie >= 11' //IE11を担保
+  'last 2 versions',
+  'ie >= 11',
+  'iOS >= 7',
+  'Android >= 4.4'
 ];
 
 /**
  * sass
  *
  */
-
 const cssSass = () => {
   return gulp.src(srcPath.scss, {
       sourcemaps: true
@@ -151,7 +156,7 @@ const browserSyncFunc = () => {
 }
 
 const browserSyncOption = {
-  server: "./_static/dist/"
+  server: distBase
 }
 
 /**
