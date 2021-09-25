@@ -4,7 +4,7 @@
 $ git clone https://github.com/Ichikun0000/gulp-test.git
 ```
 ```
-$ cd _gulp_
+$ cd _gulp
 ```
 ```
 $ npm i
